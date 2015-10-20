@@ -16,18 +16,17 @@ public class HttpUtil {
     private String address;
 
     public HttpUtil(String code) {
-        address="http://www.weather.com.cn/data/list3/city" +
-            code +
-            ".xml";
-        /*switch(currentLevel){
-            case 0:
-                address="http://www.weather.com.cn/data/list3/city.xml";
+        switch (code.length()) {
+            case 9:
+                address="http://www.weather.com.cn/adat/cityinfo/" +
+                        code +
+                        ".html";
                 break;
-            case 1:
-            case 2:
-
-                break;
-        }*/
+            default:
+                address = "http://www.weather.com.cn/data/list3/city" +
+                    code +
+                    ".xml";
+        }
     }
 
     public void sendHttpRequest(final HttpRequestListener listener){
