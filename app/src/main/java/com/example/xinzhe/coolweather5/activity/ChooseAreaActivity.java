@@ -55,7 +55,7 @@ public class ChooseAreaActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getBoolean("city_selected",false)){
+        if(prefs.getBoolean("city_selected",false)){//如果没你有诶设置过就默认为false
             Intent  intent=new Intent(this,WeatherActivity.class);
             startActivity(intent);
             finish();
@@ -93,7 +93,7 @@ public class ChooseAreaActivity extends Activity {
         //若为县级的Code则跳转到另一个Activity
         if(code.length()==6){
             Intent intent=new Intent(ChooseAreaActivity.this,WeatherActivity.class);
-            intent.putExtra("county_Code",code);
+            intent.putExtra("county_code",code);
             startActivity(intent);
             finish();
         }

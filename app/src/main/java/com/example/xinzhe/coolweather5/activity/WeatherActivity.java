@@ -38,7 +38,7 @@ public class WeatherActivity extends Activity {
         setContentView(R.layout.weather_layout);
 
 
-         weatherInfoLayout=new LinearLayout(this);
+         weatherInfoLayout=(LinearLayout)findViewById(R.id.weather_info_layout);
 
           publishText=(TextView)findViewById(R.id.publish_text);
           cityNameText=(TextView)findViewById(R.id.city_name);
@@ -49,7 +49,6 @@ public class WeatherActivity extends Activity {
           currentDateText=(TextView)findViewById(R.id.current_date);
 
         String countyCode=getIntent().getStringExtra("county_code");
-        //weatherInfoLayout=(LinearLayout)findViewById();
         if(!TextUtils.isEmpty(countyCode)){
             publishText.setText("同步中");
             weatherInfoLayout.setVisibility(View.INVISIBLE);
@@ -64,6 +63,7 @@ public class WeatherActivity extends Activity {
 
         queryFromServer(countyCode);
     }
+
     private void queryWeatherInfo(String infoCode){
         queryFromServer(infoCode);
     }
@@ -88,7 +88,7 @@ public class WeatherActivity extends Activity {
                 switch (code.length()){
                     case 6 ://处理"区县代码|天气代码"
                         if (!TextUtils.isEmpty(response)){
-                            String[] piece=response.split(",");
+                            String[] piece=response.split("\\|");
                             if (piece!=null&&piece.length==2){
                                 String weatherCode=piece[1];
                                 queryWeatherInfo(weatherCode);
