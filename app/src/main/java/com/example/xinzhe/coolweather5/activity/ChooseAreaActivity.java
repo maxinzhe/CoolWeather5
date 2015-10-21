@@ -87,11 +87,13 @@ public class ChooseAreaActivity extends Activity {
 
                 //nameStack.push(selectedArea.getName());//名字入栈
                 query(selectedArea.getCode());
-               // textView.setText(selectedArea.getName());//这时候置位若加载失败会产生错误
+                // textView.setText(selectedArea.getName());//这时候置位若加载失败会产生错误
             }
         });
-        String name="中国";
-        textView.setText(name);
+
+
+        selectedArea.setName("中国");
+
         nameMap.put("", "中国");
         //nameStack.push(name);
         query("");
