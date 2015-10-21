@@ -1,12 +1,14 @@
 package com.example.xinzhe.coolweather5.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +33,9 @@ public class WeatherActivity extends Activity {
     private TextView getPublishText;
     private TextView currentDateText;
 
+    private Button homeButton;
+    private Button refreshButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,31 @@ public class WeatherActivity extends Activity {
           weatherDespText=(TextView)findViewById(R.id.weather_desp);
           getPublishText=(TextView)findViewById(R.id.publish_text);
           currentDateText=(TextView)findViewById(R.id.current_date);
+
+        homeButton=(Button)findViewById(R.id.home_button);
+        refreshButton=(Button)findViewById(R.id.refresh_button);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(WeatherActivity.this,ChooseAreaActivity.class);
+                intent.putExtra("from_weather_activity",true);//用于ChooseAreaActivity界面判定是否为重新选择地区
+                startActivity(intent);
+                finish();
+            }
+        });
+        refreshButton.setOnClickListener(new View.OnClickListener() {//这里的刷新就是指重新查询
+            @Override
+            public void onClick(View v) {
+                publishText.setText("同步中");
+                SharedPreferences prefs=PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+                String weatherCode=prefs.getString("weather_code","");
+                if(!TextUtils.isEmpty(weatherCode)){
+                    queryWeatherInfo(weatherCode);
+                }
+
+            }
+        });
 
         String countyCode=getIntent().getStringExtra("county_code");
         if(!TextUtils.isEmpty(countyCode)){
